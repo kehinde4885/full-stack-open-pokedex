@@ -1,0 +1,29 @@
+#Name of CI Process
+name: Deployment pipeline
+
+#Trigger
+on:
+  push:
+    branches:
+      - main
+
+#Jobs to Perform on Trigger
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+    #CLone the Repo using the Public function in Actions/checkout Folder
+    # Specifically version 4
+      - uses: actions/checkout@v4
+
+    #Install NodeJs version 20 into the cloned Repo
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+    #Install dependencies from Package.json
+      - name: Install dependencies
+        run: npm install
+    #Run the shortcut "eslint" specified in package.json
+      - name: Check style
+        run: npm run eslint
+       
